@@ -26,8 +26,8 @@ public:
         mInputs = new std::vector<bool>((int)KeyInput::Count);
         mPrevInputs = new std::vector<bool>((int)KeyInput::Count);
 
-        mPlayer = new Character(window);
-        mPlayer->CharacterInit(*mInputs, *mPrevInputs);
+        mPlayer = new Character(window, mInputs, mPrevInputs);
+        //mPlayer->CharacterInit(mInputs, mPrevInputs);
 
         while (window.isOpen())
         {
@@ -52,6 +52,12 @@ public:
         mInputs->at(KeyInput::GoLeft) = Keyboard::isKeyPressed(Keyboard::Left);
         mInputs->at(KeyInput::GoDown) = Keyboard::isKeyPressed(Keyboard::Down);
         mInputs->at(KeyInput::Jump) = Keyboard::isKeyPressed(Keyboard::Space);
+
+        if (Keyboard::isKeyPressed(Keyboard::Right))
+        {
+            int ii = 5;
+            int ii2 = ii;
+        }
     }
     void FixedUpdate()
     {

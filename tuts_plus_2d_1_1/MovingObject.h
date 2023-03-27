@@ -4,24 +4,24 @@
 
 struct AABB
 {
-    sf::Vector2 <int>* center;
-    sf::Vector2 <int>* halfSize;
+    sf::Vector2 <float> center;
+    sf::Vector2 <float> halfSize;
 
-    AABB() : center(NULL), halfSize(NULL)
+    AABB()
     {
     }
 
 
-    AABB(sf::Vector2 <int>* center, sf::Vector2 <int>* halfSize)
+    AABB(float halfSizeX, float halfSizeY) : halfSize(halfSizeX, halfSizeY)
     {
-        this->center = center;
-        this->halfSize = halfSize;
     }
 
     bool Overlaps(const AABB& other)
     {
-        if (std::abs(center->x - other.center->x) > halfSize->x + other.halfSize->x) return false;
-        if (std::abs(center->y - other.center->y) > halfSize->y + other.halfSize->y) return false;
+        /*if (std::abs(center->x - other.center->x) > halfSize->x + other.halfSize->x) return false;
+        if (std::abs(center->y - other.center->y) > halfSize->y + other.halfSize->y) return false;*/
+        if (std::abs(center.x - other.center.x) > halfSize.x + other.halfSize.x) return false;
+        if (std::abs(center.y - other.center.y) > halfSize.y + other.halfSize.y) return false;
         return true;
     }
 };
@@ -29,16 +29,16 @@ struct AABB
 class MovingObject
 {
 public:
-    sf::Vector2 <int>  mOldPosition;
-    sf::Vector2 <int>  mPosition;
+    sf::Vector2 <float>  mOldPosition;
+    sf::Vector2 <float>  mPosition;
 
-    sf::Vector2 <int>  mOldSpeed;
-    sf::Vector2 <int>  mSpeed;
+    sf::Vector2 <float>  mOldSpeed;
+    sf::Vector2 <float>  mSpeed;
 
-    sf::Vector2 <int>  mScale;
+    sf::Vector2 <float>  mScale;
 
-    AABB* mAABB;
-    sf::Vector2 <int>  mAABBOffset;
+    AABB mAABB;
+    sf::Vector2 <float>  mAABBOffset;
 
     bool mPushedRightWall;
     bool mPushesRightWall;
@@ -49,7 +49,7 @@ public:
     bool mWasAtCeiling;
     bool mAtCeiling;
 
-    MovingObject()
+    MovingObject() : mPosition(20, 200)
     {
         UpdatePhysics();
     }
@@ -67,15 +67,15 @@ public:
         //mPosition += mSpeed * Time.deltaTime;
         mPosition += mSpeed;
 
-        if (mPosition.y < 0.0f)
+        if (mPosition.y >= 200.0f)
         {
-            mPosition.y = 0.0f;
+            mPosition.y = 200.0f;
             mOnGround = true;
         }
         else
             mOnGround = false;
 
-        //mAABB->center = mPosition + mAABBOffset;
+        mAABB.center = mPosition + mAABBOffset;
     }
 };
 

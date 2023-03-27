@@ -69,7 +69,7 @@ int main()
 
     Texture tPlayer;
     Image imm;
-    imm.loadFromFile("C:\\Users\\BobGranata\\Desktop\\картинки\\scot\\scott.png");
+    imm.loadFromFile("..\\Textures\\scott.png");
     tPlayer.loadFromImage(imm);
 
     //imm.flipHorizontally();
